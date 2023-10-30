@@ -37,7 +37,7 @@ binary_sensor:
   - platform: gpio
     name: "Button"
     pin:
-      number: 0
+      number: 5
       inverted: false
     on_click:
       then:
