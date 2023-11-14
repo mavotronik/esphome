@@ -1,0 +1,59 @@
+esphome:
+  name: pc-controller
+  friendly_name: pc-controller
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+  baud_rate: 0
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "xQAkt76H0tPXK09X6xJRSDQWul7OgMcBFE/weThK+lE="
+  services:
+    - service: pc_power
+      then:
+        - switch.turn_on: relay
+        - delay: 200ms
+        - switch.turn_off: relay
+
+    - service: pc_power_hold
+      then:
+        - switch.turn_on: relay
+        - delay: 2000ms
+        - switch.turn_off: relay
+  
+
+ota:
+  password: "29d891db87c9ca3198b443d879e8f188"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+captive_portal:
+
+sensor:
+  - platform: uptime
+    name: "Uptime"
+
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+
+switch:
+  - platform: gpio
+    pin: 2
+    inverted: True
+    name: "Led"
+    id: led
+
+  - platform: gpio
+    pin: 0
+    inverted: True
+    name: "Relay"
+    id: relay  
+    
