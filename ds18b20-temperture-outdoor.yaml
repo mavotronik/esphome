@@ -1,0 +1,55 @@
+esphome:
+  name: ds18b20-temperture-outdoor
+  friendly_name: Ds18b20 temperture outdoor
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+  level: DEBUG
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "OlTt7wxv+jEihS/UlKIPdevm7nkA66MmQ+q2lw2UekM="
+
+ota:
+  - platform: esphome
+    password: "62a5a980115eca49cbd9c9f66732c0e4"
+
+
+wifi:
+  ssid: !secret wifi_ssid 
+  password: !secret wifi_password 
+
+
+  ap:
+    ssid: "Ds18B20-Temperture-Outdoor"
+    password: "jrnJK2Ntk7mr"
+
+captive_portal:
+
+web_server:
+    port: 80
+    version: 2
+    local: true
+
+one_wire:
+  - platform: gpio 
+    pin: 2
+
+sensor:
+
+  - platform: uptime
+    name: Uptime Sensor
+    id: uptime_sensor
+
+  - platform: wifi_signal
+    name: "WiFi Signal Sensor"
+    update_interval: 60s
+    id: wifi_signal_sensor
+
+  - platform: dallas_temp
+    address: 0xe37cd7d534646128 
+    name: "Temperature"
